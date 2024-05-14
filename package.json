@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/ui": "^1.6.0",
+    "tsx": "^4.10.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  },  
+  "scripts": {
+    "test": "vitest --ui --coverage",
+    "tsx": "tsx"
+  }
+}
