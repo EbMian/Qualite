@@ -20,4 +20,13 @@ test.describe("BOTW", () => {
         await test.expect(locator).toBeVisible();
         //await page.pause();
     });
+
+    test("Si la requête retourne un tableau vide, le compteur affiche 0 commentaires et la liste est vide.", async ({ page }) => {
+        // Mock the api call before navigating
+        await page.route('*/**/api.php', async route => {
+            const json = [];
+            await route.fulfill({ json });
+        });
+        await page.pause();
+    });
 });
