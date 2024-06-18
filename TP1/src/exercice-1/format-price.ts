@@ -20,6 +20,6 @@ console.log(formatPrice(19.991988645432));
 console.log(formatPrice(1));
 console.log(formatPrice(1000000));
 // @ts-ignore
-console.log(formatPrice("jhgjhg"));
+//console.log(formatPrice("jhgjhg"));
 
 
