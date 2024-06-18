@@ -27,6 +27,21 @@ test.describe("BOTW", () => {
             const json = [];
             await route.fulfill({ json });
         });
-        await page.pause();
+        //await page.pause();
+    });
+    test("Si la requête retourne un tableau de 3 commentaires, le compteur affiche 3 commentaires et la liste comporte 3 items.", async ({ page }) => {
+        // Mock the api call before navigating
+        await page.route('*/**/api.php', async route => {
+            const json = [
+                {"username": "john-doe-1",
+                 "comment": "Lorem ipsum dolor sit amet"},
+                {"username": "john-doe-2",
+                 "comment": "Lorem ipsum dolor sit amet"},
+                {"username": "john-doe-3",
+                 "comment": "Lorem ipsum dolor sit amet"},
+            ];
+            await route.fulfill({ json });
+        });
+        //await page.pause();
     });
 });
