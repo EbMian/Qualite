@@ -1,4 +1,4 @@
-export function formatPrice(num:number, separator?:{"decimal": string, "thousands": string}) : string {
+export function formatPrice(num: number, separator?:{"decimal": string, "thousands": string}): string {
     // Erreurs personnalisées
     if (isNaN(num)) {
         throw new Error('Le paramètre doit être un nombre');
@@ -6,11 +6,11 @@ export function formatPrice(num:number, separator?:{"decimal": string, "thousand
     const twoDec = num.toFixed(2);
     const commaFormat = twoDec.replace('.', separator?.decimal ? separator.decimal : ',');
     const thousandsSep = commaFormat.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator?.thousands ? separator.thousands : ' ');
-    const str:string = thousandsSep.toString();
+    const str: string = thousandsSep.toString();
         
     return(str);
 }
-const separate : {"decimal":string, "thousands":string} = 
+const separate : {"decimal": string, "thousands": string} = 
 {
     "decimal": '', 
     "thousands": '.'
