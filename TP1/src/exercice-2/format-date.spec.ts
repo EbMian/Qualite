@@ -1,15 +1,14 @@
-import { it, expect, describe } from 'vitest';
+import { it, expect, describe, vi } from 'vitest';
 import { formatDate, FormatDateConfig } from './format-date';
 
-
+let mockDate : Date;
 let date : Date;
-let hours : string;
-let minutes : string;
 let separateTest : FormatDateConfig = 
 {
     "sepDateHours": " b ",
     "sepHoursMinutes": "u"
 };
+
 
 describe("Tests de la fonction formatDate", () => {
     
@@ -53,48 +52,52 @@ describe("Tests de la fonction formatDate", () => {
     });
 
     // Test avec uniquement un object de configuration contenant les deux séparateurs
-    it("Attention la date attendue doit être changée en fonction de la date du jour. Doit retourner 21/06/2024 c hhvmm", function() {
+    it("Doit retourner 17/12/1995 c 03v24", function() {
         separateTest = 
         {
             "sepDateHours": " c ",
             "sepHoursMinutes": "v"
         };
+        mockDate = new Date('December 17, 1995 03:24:00');
+        vi.setSystemTime(mockDate);
         date = new Date();
-        hours = date.getHours().toString();
-        minutes = date.getMinutes().toString();
-        expect(formatDate(date, separateTest)).toEqual('21/06/2024 c ' + hours + 'v' + minutes);
+        // reset mocked time
+        vi.useRealTimers();
+        expect(formatDate(date, separateTest)).toEqual('17/12/1995 c 03v24');
     });
 
     // Test avec seulement un object de configuration contenant uniquement un séparateur date/heures précisé (autre que chaine vie)
-    it("Attention la date attendue doit être changée en fonction de la date du jour. Doit retourner 21/06/2024 d hhhmm", function() {
+    it("Doit retourner 17/12/1995 d 03h24", function() {
         separateTest =
         {
             "sepDateHours": " d ",
             "sepHoursMinutes": ""
         };
+        mockDate = new Date('December 17, 1995 03:24:00');
+        vi.setSystemTime(mockDate);
         date = new Date();
-        hours = date.getHours().toString();
-        minutes = date.getMinutes().toString();
-        expect(formatDate(date, separateTest)).toEqual('21/06/2024 d ' + hours + 'h' + minutes);
+        // reset mocked time
+        vi.useRealTimers();
+        expect(formatDate(date, separateTest)).toEqual('17/12/1995 d 03h24');
     });
     // Test avec seulement un object de configuration contenant uniquement un séparateur heures/minutes précisé (autre que chaine vie)
-    it("Attention la date attendue doit être changée en fonction de la date du jour. Doit retourner 21/06/2024 à hhwmm", function() {
+    it("Doit retourner 17/12/1995 à 03w24", function() {
         separateTest =
         {
             "sepDateHours": "",
             "sepHoursMinutes": "w"
         };
+        mockDate = new Date('December 17, 1995 03:24:00');
+        vi.setSystemTime(mockDate);
         date = new Date();
-        hours = date.getHours().toString();
-        minutes = date.getMinutes().toString();
-        expect(formatDate(date, separateTest)).toEqual('21/06/2024 à ' + hours + 'w' + minutes);
+        // reset mocked time
+        vi.useRealTimers();
+        expect(formatDate(date, separateTest)).toEqual('17/12/1995 à 03w24');
     });
 
     // Test sans aucun paramètre    
-    it("Attention la date attendue doit être changée en fonction de la date du jour. Doit retourner 21/06/2024 à hhhmm", function() {
-        const testNoParamHours = new Date().getHours();
-        const testNoParamMinutes = new Date().getMinutes();
-        // Test à mofifier en fonction de la date du jour
-        expect(formatDate()).toEqual('21/06/2024 à ' + testNoParamHours + 'h' + testNoParamMinutes);
-    });    
+    it("Doit retourner 17/12/1995 à 03h24", function() {
+        expect(formatDate()).toEqual('17/12/1995 à 03h24');
+    });
+    
 });
